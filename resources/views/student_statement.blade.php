@@ -16,15 +16,15 @@
 
 @section('content')
 <div class="container mt-4">
-    <div class="statement-header shadow-sm d-flex justify-content-between align-items-center">
+    <div class="statement-header shadow-sm d-md-flex justify-content-between align-items-center">
         <div>
             <h2 class="fw-bold mb-1">كشف حساب مالي</h2>
             <p class="text-muted mb-0">اسم الطالب: <strong>{{ $student->full_name }}</strong></p>
             <p class="text-muted mb-0">الصف الدراسي: {{ $student->classroom->class_name }}</p>
         </div>
         <div class="text-end">
-            <h5 class="text-primary mb-1">{{ date('d/m/Y') }}</h5>
             <p class="mb-0">رقم التسجيل: {{ $student->registration_number }}</p>
+            <p class="text-primary mb-1">التاريخ : {{ date('d/m/Y') }}</p>
         </div>
     </div>
 
@@ -74,9 +74,9 @@
                         <td>{{ $payment->notes ?: '-' }}</td>
                         <td>
                         @if($payment->is_active)
-                            <span class="badge bg-success">نشطة</span>
+                            <span style="width: 70px; height:30px;" class="badge d-flex justify-content-center align-items-center bg-success">نشطة</span>
                         @else
-                            <span class="badge bg-secondary">ملغاة</span>
+                         <span style="width: 70px; height:30px;" class="badge d-flex justify-content-center align-items-center bg-secondary">ملغاة</span>
                         @endif
                         </td>
                       <td>
