@@ -94,7 +94,7 @@ public function index(Request $request)
 public function payFees($id)
 {
     $student = \App\Models\Student::with(['classroom', 'payments'])->findOrFail($id);
-     $totalPaid = $student->totalPaid(); 
+    $totalPaid = $student->totalPaid(); 
     $remaining = $student->classroom->annual_fees - $totalPaid;
 
     // توليد رقم إيصال تلقائي بناءً على وقت الدفع والـ ID
@@ -106,16 +106,25 @@ public function payFees($id)
 
 public function storePayment(Request $request)
 {
-    $request->validate([
+        $request->validate([
         'student_id' => 'required|exists:students,id',
         'amount_paid' => 'required|numeric|min:1',
         'receipt_number' => 'required|unique:payments',
         'payment_date' => 'required|date',
     ]);
 
+    $student = Student::findOrFail($request->student_id);
+    
+    $totalPaid = $student->totalPaid(); 
+
+    if (($totalPaid + $request->amount_paid) > $student->classroom->annual_fees){
+        return back()->with('error','خطأ المبلغ المدفوع يتجاوز الرسوم المتبقية على الطالب');
+    }
+
+
     \App\Models\Payment::create($request->all());
 
-    return redirect('/students')->with('success', 'تم تسجيل عملية الدفع بنجاح!');
+    return back()->with('success', 'تم تسجيل عملية الدفع بنجاح!');
 }
 
 public function statement($id)

@@ -9,21 +9,34 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
 
-        body 
-        { 
-            background-color: #f8f9fa; 
-            font-family: 'Cairo', sans-serif;
-        
-         }
-        .sidebar { min-height: 100vh; background: #212529; color: white; transition: all 0.3s; }
-        .sidebar .nav-link { color: #adb5bd; padding: 15px 20px; border-radius: 0; }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: #343a40; color: white; }
-        .main-content { padding: 20px; }
-             .sidebar {
+    body 
+    { 
+    background-color: #f8f9fa; 
+    font-family: 'Cairo', sans-serif;
+    }
+    .sidebar { 
+    min-height: 100vh;
+    background: #212529;
+    color: white;
+    transition: all 0.3s;
+    }
+    .sidebar .nav-link {
+    color: #adb5bd; padding: 
+    15px 20px; border-radius: 0;
+    }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active 
+    {
+        background: #343a40; color: white;
+    }
+    .main-content {
+     padding: 20px;
+    }
+    .sidebar {
     position: sticky;
     top: 0;
     height: 100vh; /* ليأخذ طول الشاشة بالكامل */
-    overflow-y: auto; /* إذا كانت عناصر القائمة كثيرة، يظهر سكرول داخلي لها فقط */
+    overflow-y: auto;
+    z-index: 1050 !important; /* إذا كانت عناصر القائمة كثيرة، يظهر سكرول داخلي لها فقط */
 }
     </style>
 </head>

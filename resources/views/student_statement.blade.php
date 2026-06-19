@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>كشف حساب: {{ $student->full_name }}</title>
+@extends('layouts.app')
+
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #f8f9fa; }
         .statement-header { background: #fff; border-bottom: 3px solid #1a5928; padding: 20px; margin-bottom: 30px; }
@@ -17,9 +13,8 @@
             .card { border: none !important; box-shadow: none !important; }
         }
     </style>
-</head>
-<body>
 
+@section('content')
 <div class="container mt-4">
     <div class="statement-header shadow-sm d-flex justify-content-between align-items-center">
         <div>
@@ -57,6 +52,7 @@
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-white fw-bold">سجل الدفعات التفصيلي</div>
         <div class="card-body p-0">
+            <div class="table-responsive">
             <table class="table table-striped mb-0">
                 <thead class="table-dark">
                     <tr>
@@ -109,16 +105,18 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
-    <div class="text-center no-print mb-5">
-        <button onclick="window.print()" class="btn btn-dark btn-lg px-5 shadow">
+    <div class="text-center no-print  mb-5">
+        <button onclick="window.print()" class="btn btn-dark btn-lg px-4 shadow">
             <i class="bi bi-printer"></i> طباعة كشف الحساب
         </button>
-        <a href="/pay-fees/{{ $student->id }}" class="btn btn-outline-primary btn-lg px-4 ms-2">العودة لصفحة الدفع</a>
+        <a href="/pay-fees/{{ $student->id }}" class="btn btn-outline-primary btn-lg px-4 mt-3 mt-sm-0 ms-2">العودة لصفحة الدفع</a>
     </div>
 </div>
+@endsection
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 @if(session('success'))
@@ -141,9 +139,8 @@
 @endif
 
 function togglePaymentStatus(id, identifier, isActive) {
-    // تحديد النصوص بناءً على الحالة
     const title = isActive ? 'هل أنت متأكد من إلغاء العملية؟' : 'هل تريد استعادة العملية؟';
-    const text = isActive ? "سيتم استبعاد مبلغ (" + identifier + ") من حساب الطالب." : "سيتم إعادة احتساب مبلغ (" + identifier + ") في حساب الطالب.";
+    const text = isActive ? `سيتم استبعاد مبلغ (${identifier}) من حساب الطالب.` : `سيتم احتساب مبلغ (${identifier}) في حساب الطالب.`;
     const icon = isActive ? 'warning' : 'question';
     const confirmText = isActive ? 'نعم، إلغاء' : 'نعم، استعادة';
     const confirmColor = isActive ? '#d33' : '#28a745';
@@ -160,17 +157,56 @@ function togglePaymentStatus(id, identifier, isActive) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                title: 'جاري المعالجة...',
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
             
-            // إرسال الـ Form برمجياً (أفضل من window.location للأمان)
-            document.getElementById('toggle-form-' + id).submit();
+            // 1. إظهار نافذة التحميل حتى لا يقوم المستخدم بالنقر مرتين
+            Swal.fire({
+                title: '...جاري المعالجة',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // 2. جلب الفورم الخاص بالصف المحدد بناءً على الـ ID
+            let form = document.getElementById('toggle-form-' + id);
+            let formData = new FormData(form);
+
+            // 3. إرسال الطلب في الخلفية باستخدام Fetch
+            fetch(form.action, {
+                method: 'POST', // سيقوم لارافيل بقراءة @method('PATCH') من داخل الفورم
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // لإخبار لارافيل أنه طلب AJAX
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 4. في حال النجاح، إظهار رسالة قصيرة ثم إعادة تحميل الصفحة تلقائياً
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'تمت العملية بنجاح',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.reload(); // يعيد تحميل الصفحة لتحديث كشف الحساب
+                    });
+                } else {
+                    throw new Error('حدث خطأ في السيرفر');
+                }
+            })
+            .catch(error => {
+                // 5. في حال فشل الطلب
+                Swal.fire({
+                    icon: 'error',
+                    title: 'حدث خطأ!',
+                    text: 'لم نتمكن من تنفيذ العملية، يرجى المحاولة لاحقاً.',
+                    confirmButtonText: 'حسناً'
+                });
+            });
         }
-    })
+    });
 }
+
 </script>
 </body>
 </html>
