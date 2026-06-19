@@ -9,6 +9,7 @@
 
     <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
+            <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light">
                     <tr>
@@ -38,6 +39,7 @@
                         {{-- <td class="text-success fw-bold">{{ number_format($teacher->salary) }} ج.س</td> --}}
                         <td class="text-center">
                             {{-- زر فتح مودال التعديل --}}
+                            <div class="d-flex gap-1">
                             <button class="btn btn-sm btn-outline-primary me-1" 
                                      title="تعديل بيانات المعلم"
                                     data-bs-toggle="modal" 
@@ -52,7 +54,7 @@
                                 <i class="bi bi-trash"></i>
                                 <span>حذف</span>
                             </button>
-
+                            </div>
                             {{-- فورم الحذف المخفي --}}
                             <form id="delete-form-{{ $teacher->id }}" 
                                 action="{{ route('teachers.destroy', $teacher->id) }}" 
@@ -65,6 +67,7 @@
                     @endforeach
                 </tbody>
             </table>
+             </div>
         </div>
     </div>
 </div> {{-- نهاية حاوية الصفحة --}}

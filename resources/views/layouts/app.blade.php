@@ -29,9 +29,16 @@
 </head>
 <body class="{{ $bodyClass ?? '' }}">
 
+    <nav class="navbar navbar-dark bg-dark d-md-none px-3 pb-2 pt-2">
+    <span class="navbar-brand mb-0 h1 text-white">نظام المدرسة المالي</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    </nav>
 <div class="container-fluid">
+
     <div class="row">
-        <div class="col-md-2 p-0 sidebar d-none d-md-block shadow">
+           <div class="col-md-2 p-0 sidebar shadow collapse d-md-block" id="sidebarMenu">
             <div class="p-3 text-center border-bottom border-secondary mb-3">
                 <h5 class="fw-bold mb-0 text-white">نظام المدرسة المالي</h5>
             </div>

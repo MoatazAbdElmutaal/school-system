@@ -13,6 +13,7 @@
 
     <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
+           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light">
                     <tr>
@@ -31,8 +32,9 @@
                         <td><span class="badge bg-secondary">{{ $class->students_count }} طالب</span></td>
                         <td class="fw-bold">{{ number_format($class->annual_fees) }} ج.س</td>
                         <td class="text-center">
+                            <div class="d-flex gap-1">
                             <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal" data-bs-target="#editFeeModal{{ $class->id }}">
-                                <i class="bi bi-pencil-square"></i> تعديل الرسوم
+                                <i class="bi bi-pencil-square"></i> الرسوم
                             </button>
 
                             <form action="{{ route('classrooms.destroy', $class->id) }}" method="POST" class="d-inline">
@@ -42,6 +44,8 @@
                                     <i class="bi bi-trash"></i> حذف
                                 </button>
                             </form>
+                            
+                            </div>
                         </td>
                     </tr>
 
@@ -69,7 +73,8 @@
                     </div>
                     @endforeach
                 </tbody>
-            </table>
+            </table>      
+        </div>
         </div>
     </div>
 </div>

@@ -56,6 +56,7 @@
                             <td class="fw-bold text-danger">{{ number_format($expense->amount) }} ج.س</td>
 
                             <td class="text-center">
+                                <div class="d-flex gap-1">
                                     <button type="button" class="btn btn-sm btn-light border" data-bs-toggle="modal" data-bs-target="#editExpense{{ $expense->id }}">
                                         <i class="bi bi-pencil"></i>
                                     </button>
@@ -94,7 +95,8 @@
                                 <button type="button" class="btn btn-sm btn-light border text-danger delete-btn">
                                     <i class="bi bi-trash"></i>
                                 </button>
-                            </form>
+                            </div>
+                                </form>
                             </td>
                         </tr>
                         @empty

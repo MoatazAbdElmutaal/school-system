@@ -125,6 +125,7 @@
         </div>
         
         <div class="card-body card-table">
+            <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -168,7 +169,8 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table>      
+            </div>
         </div>
         <div style="padding-right: 20px; padding-left: 20px;">
             {{ $students->appends(request()->query())->links('pagination::bootstrap-5') }}

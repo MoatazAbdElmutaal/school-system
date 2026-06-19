@@ -192,28 +192,28 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-6">
-                            <a href="{{ route('students.index') }}" class="btn btn-light w-100 py-4 border">
+                            <a href="{{ route('students.index') }}" class="btn btn-light w-100 h-100 py-4 d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-person-lines-fill fs-2 d-block mb-2 text-primary"></i>
                                 إدارة الطلاب
                             </a>
                         </div>
 
                         <div class="col-6">
-                            <a href="{{ route('classrooms.stats') }}" class="btn btn-light w-100 py-4 border">
+                            <a href="{{ route('classrooms.stats') }}" class="btn btn-light w-100 h-100 py-4 d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-building fs-2 d-block mb-2 text-success"></i>
                                 إحصائيات الفصول
                             </a>
                         </div>
 
                         <div class="col-6">
-                                 <a href="{{ route('expenses.index') }}" class=" nav-link {{ request()->is('expenses*') ? 'active' : '' }}btn btn-light w-100 py-4 border">
+                                 <a href="{{ route('expenses.index') }}" class="btn btn-light w-100 h-100 py-4 d-flex flex-column justify-content-center align-items-center">
                                  <i class="bi bi-cash-stack  fs-2 d-block mb-2 text-success"></i>
                                 المصروفات
                             </a>
                         </div>
 
                         <div class="col-6">
-                            <a href="{{ route('settings.index') }}" class="btn btn-light w-100 py-4 border">
+                            <a href="{{ route('settings.index') }}" class="btn btn-light w-100 h-100 py-4 d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-gear fs-2 d-block mb-2 text-secondary"></i>
                                 الإعدادات
                             </a>
