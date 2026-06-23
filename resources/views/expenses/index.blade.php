@@ -72,7 +72,7 @@
                                     @method('PUT')
                                     <div class="modal-body">
                                     <div class="mb-3">
-                                    <label class="form-label">عنوان المصروف</label>
+                                    <label class="form-label">تفاصيل المصروف</label>
                                     <input type="text" name="title" class="form-control" value="{{ $expense->title }}" required>
                                     </div>
                                     <div class="mb-3">
