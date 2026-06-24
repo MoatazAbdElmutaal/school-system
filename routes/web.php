@@ -44,7 +44,8 @@ use App\Http\Controllers\ExpenseController;
 // Route::put('/expenses', [ExpenseController::class, 'update'])->name('expenses.update');
 // Route::delete('/expenses{id}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
 
-Route::resource('expenses', ExpenseController::class)->excpet("show");
+// Route::resource('expenses', ExpenseController::class)->excpet("show");
+Route::resource('expenses', ExpenseController::class)->except(['show']);
 
 use App\Http\Controllers\SettingController;
 Route::post('/settings/transfer', [SettingController::class, 'transfer'])->name('settings.transfer');
