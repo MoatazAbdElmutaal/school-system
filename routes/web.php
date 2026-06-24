@@ -39,7 +39,12 @@ Route::put('/classrooms/{id}/update-fee', [ClassroomStatsController::class, 'upd
 Route::delete('/classrooms/{id}', [ClassroomStatsController::class, 'destroy'])->name('classrooms.destroy');
 
 use App\Http\Controllers\ExpenseController;
-Route::resource('expenses', ExpenseController::class);
+Route::get('/expenses', [ExpenseController::class, 'index'])->name('expenses.index');
+Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
+Route::put('/expenses', [ExpenseController::class, 'update'])->name('expenses.update');
+Route::delete('/expenses{id}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
+
+// Route::resource('expenses', ExpenseController::class);
 
 use App\Http\Controllers\SettingController;
 Route::post('/settings/transfer', [SettingController::class, 'transfer'])->name('settings.transfer');
